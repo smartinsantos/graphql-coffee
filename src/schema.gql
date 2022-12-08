@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Drink Interface"""
+interface Drink {
+  name: String!
+}
+
 """Flavor model"""
 type Flavor {
   """Unique identifier"""
@@ -11,19 +16,26 @@ type Flavor {
 }
 
 """Coffee model"""
-type Coffee {
+type Coffee implements Drink {
+  name: String!
+
   """Unique identifier"""
   id: ID!
-  name: String!
   brand: String!
   flavors: [Flavor!]!
   createdAt: Date
+}
+
+"""Tea model"""
+type Tea implements Drink {
+  name: String!
 }
 
 """Date custom scalar type"""
 scalar Date
 
 type Query {
+  drinks: [Drink!]!
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee!
 }
