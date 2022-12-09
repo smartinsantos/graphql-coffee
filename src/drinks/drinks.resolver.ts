@@ -1,6 +1,6 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { CoffeesService } from 'src/coffees/coffees.service';
-import { Drink } from 'src/common/interfaces/drink.interface/drink.interface';
+import { DrinksResultUnion } from 'src/common/unions/drinks-result.union';
 import { TeasService } from 'src/teas/teas.service';
 
 @Resolver()
@@ -10,8 +10,8 @@ export class DrinksResolver {
     private readonly teasService: TeasService,
   ) {}
 
-  @Query(() => [Drink], { name: 'drinks' })
-  async findAll(): Promise<Drink[]> {
+  @Query(() => [DrinksResultUnion], { name: 'drinks' })
+  async findAll(): Promise<typeof DrinksResultUnion[]> {
     const coffees = await this.coffeesService.findAll();
     const teas = await this.teasService.findAll();
     return [...coffees, ...teas];
