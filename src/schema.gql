@@ -29,21 +29,29 @@ type Coffee implements Drink {
 """Tea model"""
 type Tea implements Drink {
   name: String!
+
+  """Unique Identifier"""
+  id: ID!
 }
 
 """Date custom scalar type"""
 scalar Date
 
 type Query {
-  drinks: [Drink!]!
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee!
+  teas: [Tea!]!
+  tea(id: ID!): Tea!
+  drinks: [Drink!]!
 }
 
 type Mutation {
   createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
   updateCoffee(id: Float!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
   removeCoffee(id: Float!): Coffee!
+  createTea(createTeaInput: CreateTeaInput!): Tea!
+  updateTea(id: Float!, updateTeaInput: UpdateTeaInput!): Tea!
+  removeTea(id: Float!): Tea!
 }
 
 """Create coffe input object type."""
@@ -57,4 +65,13 @@ input UpdateCoffeeInput {
   name: String
   brand: String
   flavors: [String!]
+}
+
+"""Create tea input object type"""
+input CreateTeaInput {
+  name: String!
+}
+
+input UpdateTeaInput {
+  name: String
 }

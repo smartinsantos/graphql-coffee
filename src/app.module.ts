@@ -9,6 +9,8 @@ import { CoffeesModule } from './coffees/coffees.module';
 import { DateScalar } from './common/scalars/date.scalar/date.scalar';
 import { Tea } from './teas/entities/tea.entity';
 import { DrinksResolver } from './drinks/drinks.resolver';
+import { TeasModule } from './teas/teas.module';
+import { DrinksModule } from './drinks/drinks.module';
 
 @Module({
   imports: [
@@ -25,13 +27,12 @@ import { DrinksResolver } from './drinks/drinks.resolver';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      buildSchemaOptions: {
-        orphanedTypes: [Tea],
-      },
     }),
     CoffeesModule,
+    TeasModule,
+    DrinksModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DateScalar, DrinksResolver],
+  providers: [AppService, DateScalar],
 })
 export class AppModule {}

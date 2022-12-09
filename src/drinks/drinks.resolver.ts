@@ -1,19 +1,19 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { Coffee } from 'src/coffees/entities/coffee.entity';
+import { CoffeesService } from 'src/coffees/coffees.service';
 import { Drink } from 'src/common/interfaces/drink.interface/drink.interface';
-import { Tea } from 'src/teas/entities/tea.entity';
+import { TeasService } from 'src/teas/teas.service';
 
 @Resolver()
 export class DrinksResolver {
+  constructor(
+    private readonly coffeesService: CoffeesService,
+    private readonly teasService: TeasService,
+  ) {}
+
   @Query(() => [Drink], { name: 'drinks' })
   async findAll(): Promise<Drink[]> {
-    const coffee = new Coffee();
-    coffee.id = 1;
-    coffee.name = 'Colombia';
-    coffee.brand = 'Black Crow Coffee';
-
-    const tea = new Tea();
-    tea.name = 'England';
-    return [coffee, tea];
+    const coffees = await this.coffeesService.findAll();
+    const teas = await this.teasService.findAll();
+    return [...coffees, ...teas];
   }
 }
