@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "e2e00be8-a1d8-4d5c-9d07-6e340f3a5add",
+		"name": "graphql-coffee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19985002"
+	},
+	"item": [
+		{
+			"name": "/graphql { coffees }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    coffees {\n        id,\n        name,\n        brand,\n        createdAt,\n        flavors {\n            id,\n            name\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { teas }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    teas {\n        id,\n        name,\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { drinks }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    drinks {\n        ...on Tea {\n            id\n            name\n        },\n        ... on Coffee {\n            id\n            name\n            brand\n            type\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { coffee }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query($coffeeId: ID!) {\n    coffee(id: $coffeeId) {\n        id,\n        name,\n        brand,\n        createdAt,\n        flavors {\n            id,\n            name\n        }\n    }\n}\n",
+						"variables": "{\n    \"coffeeId\": 1\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { tea }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query($teaId: ID!) {\n    tea(id: $teaId) {\n        id,\n        name,\n    }\n}\n",
+						"variables": "{\n    \"teaId\": 1\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { createCoffee }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($name: String!, $brand: String!, $flavors: [String!]!) {\n    createCoffee(createCoffeeInput: {\n        name: $name,\n        brand: $brand,\n        flavors: $flavors,\n        type: ARABICA\n    }) {\n        id,\n        name,\n        brand,\n        createdAt,\n        flavors {\n            id,\n            name\n        }\n    }\n}",
+						"variables": "{\n    \"name\": \"Sergio's Coffee #6\",\n    \"brand\": \"Buddy Brew\",\n    \"flavors\": [\"chocolate\", \"vanilla\"]\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { createTea }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($name: String!) {\n    createTea(createTeaInput: {\n        name: $name,\n    }) {\n        id,\n        name,\n    }\n}",
+						"variables": "{\n    \"name\": \"Sergio's Tea #1\",\n    \"brand\": \"Buddy Brew\",\n    \"flavors\": [\"green\", \"black\"]\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { updateCoffee }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($id: Float!, $name: String, $brand: String, $flavors: [String!]) {\n    updateCoffee(id: $id, updateCoffeeInput: {\n        name: $name,\n        brand: $brand,\n        flavors: $flavors\n    }) {\n        id,\n        name,\n        brand,\n        flavors {\n            id,\n            name\n        }\n    }\n}",
+						"variables": "{\n    \"id\": 3,\n    \"name\": \"new Name\",\n    \"brand\": \"new Brand\"\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { updateTea }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($id: Float!, $name: String) {\n    updateTea(id: $id, updateTeaInput: {\n        name: $name,\n    }) {\n        id,\n        name,\n    }\n}",
+						"variables": "{\n    \"id\": 4,\n    \"name\": \"new tea name\"\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { removeCoffee }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($id: Float!) {\n    removeCoffee(id: $id) {\n        id,\n        name,\n        brand,\n        flavors {\n            id,\n            name\n        }\n    }\n}",
+						"variables": "{\n    \"id\": 4\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/graphql { removeTea }",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($id: Float!) {\n    removeTea(id: $id) {\n        id,\n        name,\n    }\n}",
+						"variables": "{\n    \"id\": 4\n}"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
